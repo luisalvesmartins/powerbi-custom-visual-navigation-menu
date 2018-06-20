@@ -140,8 +140,8 @@ console.log(JSON.stringify(categorical));
                         newElem.appendChild(new_img);
 
                         var title:HTMLDivElement=document.createElement("div");
-                        title.setAttribute("style","font:arial 10pt;");
-                        title.textContent=textTitle + " (" + textNav + ")";
+                        title.setAttribute("style","font:arial 10pt;width:112px;word-break:break-all;word-wrap:break-word;white-space:pre-wrap;margin-top:2px;");
+                        title.textContent=textTitle;
                         newElem.appendChild(title);
 
                         outDiv.appendChild(newElem);
