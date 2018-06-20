@@ -50,6 +50,13 @@ module powerbi.extensibility.visual {
         private host:IVisualHost;
         private selectionManager: ISelectionManager;
         private menu;
+
+        private indexIconURL=0;
+        private indexBackgroundColor=1;
+        private indexTitle=2;
+        private indexPage=3;
+
+        
         //private svg: d3.Selection<SVGElement>;
 
         constructor(options: VisualConstructorOptions) {
@@ -92,10 +99,9 @@ module powerbi.extensibility.visual {
                 let dataValues = categorical.values;
 
                 this.menu=new Array();
-
+console.log(JSON.stringify(categorical));
                 for(let dataValue of dataValues) {
                     let values = dataValue.values;
-
 
                     for(let f = 0, len = dataValue.values.length; f < len; f++) {
                             //for(var f=0;f<this.tableData.length;f++){
@@ -111,14 +117,16 @@ module powerbi.extensibility.visual {
                         numberOfElements++;
                             
                         //Title,URL,color,nav
-
-                        var imgBackgroundColor=this.tableData[f][1];
-                        var imgURL=this.tableData[f][0];
-                        var textTitle=this.tableData[f][3];
-                        var textNav=this.tableData[f][2];
+                        //THIS NEEDS TO BE CHANGED TO GATHER DATA FROM THE CORRECT COLUMNS
+                        //URL, COLOR, TITLE, NAV
+                        var imgBackgroundColor=this.tableData[f][this.indexBackgroundColor];
+                        var imgURL=this.tableData[f][this.indexIconURL];
+                        var textTitle=this.tableData[f][this.indexTitle];
+                        var textNav=this.tableData[f][this.indexPage];
                         if (!imgURL)
                             imgURL="https://emeastackrplatformprd03.blob.core.windows.net/pbimages/menu-analysis.png";
 
+                            //alert(imgBackgroundColor + " " + imgURL + " " + textTitle + " " + textNav)
                         var newElem= document.createElement("div");
                         newElem.setAttribute("style","margin-bottom:30px;width:112px;height:112px;background-color:" + imgBackgroundColor + ";white-space: nowrap;text-align: center;");
                     
@@ -157,9 +165,19 @@ module powerbi.extensibility.visual {
         public update(options: VisualUpdateOptions) {
             this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
             console.log('Visual update', options);
+            for (var f=0;f<options.dataViews[0].table.columns.length;f++)
+            {
+                //JUST BECAUSE IT'S A DEMO :)
+                if (!options.dataViews[0].table.columns[f].isMeasure){
+                    var a:any=options.dataViews[0].table.columns[f].identityExprs[0];
+                    var b=a.ref;
+                    if (b.indexOf("URL")>=0) {this.indexIconURL=f;}
+                    if (b.indexOf("Title")>=0) {this.indexTitle=f;}
+                    if (b.indexOf("Color")>=0) {this.indexBackgroundColor=f;}
+                    if (b.indexOf("Page")>=0) {this.indexPage=f;}
+                }
+            }//URL,TITLE,COLOR,PAGEACCESS,TITLE
             this.tableData=options.dataViews[0].table.rows;
-            //this.tableData=options.dataViews[0];
-            //alert(JSON.stringify(this.tableData));
             //alert(JSON.stringify(this.tableData));
             this.rebuildVisual(options);
         }

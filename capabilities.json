@@ -1,26 +1,6 @@
 {
     "dataRoles": [
         {
-            "displayName": "BackgroundColor",
-            "name": "backgroundcolor",
-            "kind": "Grouping"
-        },
-        {
-            "displayName": "IconURL",
-            "name": "icon",
-            "kind": "Grouping"
-        },
-        {
-            "displayName": "Title",
-            "name": "title",
-            "kind": "Grouping"
-        },
-        {
-            "displayName": "Navigation",
-            "name": "navigation",
-            "kind": "Grouping"
-        },
-        {
             "displayName": "Category Data",
             "name": "category",
             "kind": "Grouping"
