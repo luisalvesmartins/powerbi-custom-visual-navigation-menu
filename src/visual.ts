@@ -171,10 +171,10 @@ console.log(JSON.stringify(categorical));
                 if (!options.dataViews[0].table.columns[f].isMeasure){
                     var a:any=options.dataViews[0].table.columns[f].identityExprs[0];
                     var b=a.ref;
-                    if (b.indexOf("URL")>=0) {this.indexIconURL=f;}
-                    if (b.indexOf("Title")>=0) {this.indexTitle=f;}
-                    if (b.indexOf("Color")>=0) {this.indexBackgroundColor=f;}
-                    if (b.indexOf("Page")>=0) {this.indexPage=f;}
+                    if (b.toUpperCase().indexOf("URL")>=0) {this.indexIconURL=f;}
+                    if (b.toUpperCase().indexOf("TITLE")>=0) {this.indexTitle=f;}
+                    if (b.toUpperCase().indexOf("COLOR")>=0) {this.indexBackgroundColor=f;}
+                    if (b.toUpperCase().indexOf("PAGE")>=0) {this.indexPage=f;}
                 }
             }//URL,TITLE,COLOR,PAGEACCESS,TITLE
             this.tableData=options.dataViews[0].table.rows;
